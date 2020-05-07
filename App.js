@@ -1,38 +1,74 @@
-
 import * as React from 'react';
-import { View, Text } from 'react-native';
-import { Button } from 'react-native-elements';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
+import {Icon} from 'react-native-elements';
+import LoginScreen from './src/LoginScreen';
+import HomeScreen from './src/HomeScreen';
+import FormScreen from './src/FormScreen.js';
+import HistoryScreen from './src/HistoryScreen';
+import MyScreen from './src/MyScreen';
 
-function HomeScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text style={{ fontSize: 50, marginBottom: 15 }}>LSZSB</Text>
-      <Button title="跳一下" onPress={() => navigation.navigate('Detail')} />
-    </View>
-  );
-}
-
-function DetailScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text style={{ fontSize: 50 }}>LSZNB</Text>
-    </View>
-  );
-}
-
+const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Detail" component={DetailScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
+const HomeTabs = () => (
+  <Tab.Navigator backBehavior="none">
+    <Tab.Screen
+      name="Home"
+      component={HomeScreen}
+      options={{
+        title: '信息导入',
+        tabBarIcon: ({color}) => <Icon name="launch" color={color}/>,
+      }}
+    />
+    <Tab.Screen
+      name="History"
+      component={HistoryScreen}
+      options={{
+        title: '历史记录',
+        tabBarIcon: ({color}) => <Icon name="reorder" color={color}/>,
+      }}
+    />
+    <Tab.Screen
+      name="My"
+      component={MyScreen}
+      options={{
+        title: '我的信息',
+        tabBarIcon: ({color}) => <Icon name="person" color={color}/>,
+      }}
+    />
+  </Tab.Navigator>
+);
 
-export default App;
+const AppMain = () => (
+  <Stack.Navigator>
+    <Stack.Screen
+      name="Home"
+      component={HomeTabs}
+      options={{headerShown: false}}
+    />
+    <Stack.Screen
+      name="Form"
+      component={FormScreen}
+      options={{headerShown: false}}
+    />
+  </Stack.Navigator>
+);
+
+export default () => (
+  <NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{title: '登录'}}
+      />
+      <Stack.Screen
+        name="Home"
+        component={AppMain}
+        options={{title: '水产信息溯源'}}
+      />
+    </Stack.Navigator>
+  </NavigationContainer>
+);
