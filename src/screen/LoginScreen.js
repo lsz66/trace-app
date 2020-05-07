@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
-import {Dimensions, Image, ScrollView, StyleSheet, Text} from 'react-native';
+import {Image, ScrollView, StyleSheet, Text} from 'react-native';
 import {Button, Icon, Input} from 'react-native-elements';
+import theme from '../style/theme';
+import Dimension from '../utils/Dimension';
 
 export default ({navigation}) => {
   const [username, setUsername] = useState('');
@@ -9,7 +11,7 @@ export default ({navigation}) => {
   return (
     <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
       <Image
-        source={require('./static/logo.png')}
+        source={require('../asset/logo.png')}
         style={styles.img}
         borderRadius={20}
       />
@@ -18,20 +20,20 @@ export default ({navigation}) => {
         label="用户名"
         containerStyle={styles.input}
         placeholder="请输入用户名"
-        leftIcon={<Icon name="person"/>}
+        leftIcon={<Icon name="person" />}
         onChangeText={setUsername}
       />
       <Input
         label="密码"
         containerStyle={styles.input}
         placeholder="请输入密码"
-        leftIcon={<Icon name="https"/>}
+        leftIcon={<Icon name="https" />}
         secureTextEntry={true}
         onChangeText={setPassword}
       />
       <Button
         title="登录"
-        buttonStyle={styles.btn}
+        buttonStyle={theme.btn}
         onPress={() => {
           console.log(username, password);
           navigation.reset({
@@ -44,7 +46,6 @@ export default ({navigation}) => {
   );
 };
 
-const width = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   container: {
     marginVertical: 10,
@@ -53,13 +54,10 @@ const styles = StyleSheet.create({
   input: {
     marginVertical: 10,
   },
-  btn: {
-    margin: 15,
-  },
   img: {
     marginVertical: 10,
-    width: width - 150,
-    height: width - 150,
+    width: Dimension.width - 150,
+    height: Dimension.width - 150,
     alignSelf: 'center',
   },
   text: {

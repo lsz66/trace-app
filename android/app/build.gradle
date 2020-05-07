@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.traceapp"
+        applicationId "cn.edu.lingnan.trace"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -151,6 +151,15 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+
+        release {
+            if (project.hasProperty('TRACE_RELEASE_STORE_FILE')) {
+                storeFile file(TRACE_RELEASE_STORE_FILE)
+                storePassword TRACE_RELEASE_STORE_PASSWORD
+                keyAlias TRACE_RELEASE_KEY_ALIAS
+                keyPassword TRACE_RELEASE_KEY_PASSWORD
+            }
+        }
     }
     buildTypes {
         debug {
@@ -162,6 +171,7 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
 

@@ -3,11 +3,11 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Icon} from 'react-native-elements';
-import LoginScreen from './src/LoginScreen';
-import HomeScreen from './src/HomeScreen';
-import FormScreen from './src/FormScreen.js';
-import HistoryScreen from './src/HistoryScreen';
-import MyScreen from './src/MyScreen';
+import LoginScreen from './src/screen/LoginScreen';
+import HomeScreen from './src/screen/HomeScreen';
+import FormScreen from './src/screen/Form';
+import HistoryScreen from './src/screen/HistoryScreen';
+import ResultScreen from './src/screen/Form/ResultScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -19,7 +19,7 @@ const HomeTabs = () => (
       component={HomeScreen}
       options={{
         title: '信息导入',
-        tabBarIcon: ({color}) => <Icon name="launch" color={color}/>,
+        tabBarIcon: ({color}) => <Icon name="launch" color={color} />,
       }}
     />
     <Tab.Screen
@@ -27,15 +27,7 @@ const HomeTabs = () => (
       component={HistoryScreen}
       options={{
         title: '历史记录',
-        tabBarIcon: ({color}) => <Icon name="reorder" color={color}/>,
-      }}
-    />
-    <Tab.Screen
-      name="My"
-      component={MyScreen}
-      options={{
-        title: '我的信息',
-        tabBarIcon: ({color}) => <Icon name="person" color={color}/>,
+        tabBarIcon: ({color}) => <Icon name="reorder" color={color} />,
       }}
     />
   </Tab.Navigator>
@@ -46,12 +38,17 @@ const AppMain = () => (
     <Stack.Screen
       name="Home"
       component={HomeTabs}
-      options={{headerShown: false}}
+      options={{title: '水产信息溯源'}}
     />
     <Stack.Screen
       name="Form"
       component={FormScreen}
-      options={{headerShown: false}}
+      options={{title: '导入信息'}}
+    />
+    <Stack.Screen
+      name="Result"
+      component={ResultScreen}
+      options={{title: '提交'}}
     />
   </Stack.Navigator>
 );
@@ -67,7 +64,7 @@ export default () => (
       <Stack.Screen
         name="Home"
         component={AppMain}
-        options={{title: '水产信息溯源'}}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   </NavigationContainer>
